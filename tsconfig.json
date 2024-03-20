@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "sourceMap": true,
+        "outDir": "dist",
+        "strict": true,
+        "lib": ["esnext"],
+        "esModuleInterop": true,
+        "allowJs": true
+    },
+    "include": ["src/**/*", ".vscode/backup/ghost_main_wm5dxPlus.ts.temp"],
+    "exclude": ["src/wmmt/**/*"]
+}
