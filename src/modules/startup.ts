@@ -10,12 +10,13 @@ import { months } from "moment";
 import { endianness } from "os";
 import { getEnvironmentData } from "worker_threads";
 import { OCMSchedule } from "./eventSchedule";
+import { Config } from "../config";
 
 export async function PlaceAcquire(){
 
     let place = wm.v388.protobuf.Place.create({
         placeId: 'CHN0001',
-        shopName: '赫利俄斯(Helios)',
+        shopName: Config.getConfig().shopName,
         regionId: 10,
         country: 'CHN'
     })
@@ -54,5 +55,24 @@ export default class StartupModule extends Module {
             common.sendResponse(message,res)
 
         });
+
+        app.post('/method/ping', async(req,res) => {
+
+            let msg = wm.v388.protobuf.PingResponse.encode({
+                error: wm.v388.protobuf.ErrorCode.ERR_SUCCESS,
+                pong: 0
+            })
+
+            common.sendResponse(msg,res)
+
+        })
+
+        app.post('/method/update_user_lock', async(req,res) => {
+            common.sendResponse(wm.v388.protobuf.UpdateUserLockResponse.encode({
+                error: wm.v388.protobuf.ErrorCode.ERR_SUCCESS
+            }),res)
+        })
+
+
     }
 }
