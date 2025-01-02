@@ -1,0 +1,171 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("POSTGRES_URL")
+}
+
+model events {
+    id Int @id
+    pajeroDiscloseAt DateTime 
+    carCampaignStartAt DateTime
+    carCampaignEndAt DateTime
+    teamSuspensionAnnouncementStartAt DateTime
+    teamSuspensionStartAt DateTime
+    successionCloseAnnouncementStartAt DateTime
+    successionCloseAt DateTime
+    successionCloseAnnouncementEndAt DateTime
+}
+
+model user {
+    id Int @id @default(autoincrement())
+    cardChipId String @unique
+    accessCode String @unique
+    placeId String @default("CHN048001")
+    hp600Count Int @default(0)
+    tutorials Int @default(0)
+    teamId Int?
+    team_sticker_font Int?
+    carOrder Int[] @default([])
+    lastLoginTime DateTime @default(now())
+}
+
+model team{
+    id Int @id @default(autoincrement())
+    leader Int
+    placeId String @default("CHN048001")
+    teamName String
+    createTime DateTime @default(now())
+    teamStickers Int[] @default([])
+    teamStickerFont Int
+    applying Boolean @default(true)
+    notices Int[]
+    field1 String[] // Not Sure How it working
+    field2 Int[] // Not Sure How it working
+    field3 Int[] // Not Sure How it working
+    teamCarId Int? // Prior Car Show ID
+}
+
+model teamOperationHistory{
+    id Int @id @default(autoincrement())
+    teamId Int
+    userId Int
+    noticeType Int // 1 is Join, 2 is Leave
+    operationTime DateTime @default(now())
+    field1 String? // Not Sure How it working
+    field2 Int? // Not Sure How it working
+}
+
+model car{
+    userId Int
+    carId Int @id @default(autoincrement())
+    regionId            Int @default(10)
+    country             String @default("CHN")
+    name                String 
+    searchCode          String
+    manufacturer        Int
+    model               Int
+    visualModel         Int
+    defaultColor        Int
+    customColor         Int
+    wheel               Int @default(0)
+    wheelColor          Int @default(0)
+    aero                Int @default(0)
+    bonnet              Int @default(0)
+    wing                Int @default(0)
+    mirror              Int @default(0)
+    sticker             Int @default(0)
+    stickerColor        Int @default(0)
+    neon                Int @default(0)
+    trunk               Int @default(0)
+    plate               Int @default(0)
+    plateColor          Int @default(0)
+    specialSticker      Int @default(0)
+    specialStickerColor Int @default(0)
+    tunePower           Int @default(0)
+    tuneHandling        Int @default(0)
+    title               Int @default(0)
+    level               Int @default(46)
+    teamSticker         Boolean? @default(false)
+    lastPlayedAt        DateTime? @default(now())
+    lastPlayedPlace     String @default("CHN048001")
+    aura                Int?  @default(0)
+    ghostLevel          Int @default(1) // Level 1
+
+    // OCM
+    competitionState Int @default(0)
+
+    // Extended
+    tuningPoint              Int  @default(0) 
+    dressupPoint             Int  @default(0)
+    dressupLevel             Int @default(0)
+    odometer                 Int @default(0)
+    playCount                Int @default(0)
+    earnedCustomColor        Boolean @default(false)
+    ownedCustomColors        Int @default(0)
+    ownedDressupParts        Int @default(0)
+    vsPlayCount              Int @default(0)
+    vsBurstCount             Int @default(0)
+    vsStarCount              Int @default(0)
+    vsStarCountMax           Int @default(0)
+    vsCoolOrWild             Int @default(0)
+    vsSmoothOrRough          Int @default(0)
+    rgPlayCount              Int @default(0)
+    rgWinCount               Int @default(0)
+    maxiCoin                 Int @default(0)
+    rgBlock                  Int @default(0)
+    rgProgress               Int[] @default([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
+    rgClearCount             Int @default(0)
+    rgConsecutiveLosses      Int @default(0)
+    stPlayCount              Int @default(0)
+    stClearBits              Int @default(0)
+    stClearDivCount          Int @default(0)
+    stClearCount             Int @default(0)
+    stLoseBits               BigInt @default(0)
+    stLose                   Boolean @default(false)
+    stConsecutiveWins        Int @default(0)
+    stConsecutiveWinsMax     Int @default(0)
+    ownedMeters              Int @default(0)
+    ownedBgm                 Int @default(0)
+    ownedNameplates          Int @default(0)
+    specialTitle             Int?
+    earnedTitle              Int?
+    ghostBattleCount Int @default(0)
+    ghostBattleWinCount Int @default(0)
+}
+
+model carSetting {
+    carId          Int     @id @default(autoincrement())
+    view           Boolean @default(true)  // THIRD PART
+    transmission   Boolean
+    retire         Boolean @default(false) // DO NOT RETIRE
+    meter          Int @default(0) // DEFAULT
+    volume         Int @default(2) // MID
+    bgm            Int @default(0) // WM4
+    nameplate      Int @default(0) // DEFAULT
+    nameplateColor Int @default(0) // DEFAULT
+}
+
+model timeTrial {
+
+    recordId Int @id @default(autoincrement())
+    
+    carId Int
+    course Int
+    model Int
+    tunePower Int
+    tuneHandling Int
+    time Int
+    section1Time Int
+    section2Time Int
+    section3Time Int
+    section4Time Int
+    section5Time Int?
+    section6Time Int?
+    section7Time Int?
+
+    RecordTime DateTime @default(now())
+
+}

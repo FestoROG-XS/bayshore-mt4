@@ -1,0 +1,10 @@
+{
+    "placeId": "CHN000000",
+    "shopName": "BRANCH LAB CHN",
+    "shopNickname": "BRANCH LAB CHN",
+    "regionId": "10",
+    "country": "CHN",
+    "regionName": "Guangdong",
+    "serverIp": "localhost",
+    "debugMode": true
+}
