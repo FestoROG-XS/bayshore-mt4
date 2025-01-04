@@ -14,7 +14,7 @@ import { FAULT } from "../util/log";
 import { getPlace, getPlaces, JIANGMEN, REACT } from "../util/general";
 const db = new PrismaClient();
 
-export default class StartupModule extends Module {
+export default class StartupModule {
     register(app: Application): void {
         
         app.post('/method/register_system_info', async(req,res) => {

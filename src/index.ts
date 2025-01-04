@@ -13,7 +13,7 @@ import { Config } from './config';
 import process from 'process';
 import * as Sentry from '@sentry/node';
 import * as Tracing from '@sentry/tracing';
-import * as common from './modules/util/common';
+import * as common from './util/common';
 
 import * as dotenv from "dotenv";
 dotenv.config({path: __dirname + '/.env'});

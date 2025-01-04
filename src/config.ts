@@ -13,6 +13,7 @@ export interface ConfigFile
     unix?: UnixOptions;
     notices?: string[];
     sentryDsn?: string;
+    debugMode: boolean;
 }
 
 export interface UnixOptions 

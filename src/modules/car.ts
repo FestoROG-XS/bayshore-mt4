@@ -16,7 +16,7 @@ import { DEBUG, FAULT } from "../util/log";
 import { prisma } from "..";
 const db = new PrismaClient();
 
-export default class CarModule extends Module {
+export default class CarModule {
     register(app: Application): void {
 
         app.post('/method/create_car', async(req,res) => {
