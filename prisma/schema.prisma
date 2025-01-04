@@ -132,8 +132,10 @@ model car{
     ownedNameplates          Int @default(0)
     specialTitle             Int?
     earnedTitle              Int?
-    ghostBattleCount Int @default(0)
-    ghostBattleWinCount Int @default(0)
+    ghostBattleCount         Int @default(0)
+    ghostBattleWinCount      Int @default(0)
+    GhostTrail               GhostTrail[]
+    GhostBattleRecord        GhostBattleRecord[]
 }
 
 model carSetting {
@@ -168,4 +170,33 @@ model timeTrial {
 
     RecordTime DateTime @default(now())
 
+}
+
+model GhostTrail {
+    dbId              Int        @id @default(autoincrement())
+    car               car        @relation(fields: [carId], references: [carId])
+    carId             Int
+    area              Int
+    ramp              Int
+    trail             Bytes
+    playedAt          Int
+    tunePower         Int        @default(0)
+    tuneHandling      Int        @default(0)
+    IsCrown           Boolean    @default(false)
+}
+
+model GhostBattleRecord {
+    dbId                    Int        @id @default(autoincrement())
+    car                     car        @relation(fields: [carId], references: [carId])
+    carId                   Int
+    tunePower               Int        @default(0)
+    tuneHandling            Int        @default(0)
+    opponentCarId           Int
+    opponentResult          Int
+    opponentTunePower       Int?
+    opponentTuneHandling    Int?
+    revenged                Boolean    @default(false)
+    area                    Int        @default(0)
+    playedAt                Int        @default(0)
+    playedShopName          String     @default("Bayshore")
 }
