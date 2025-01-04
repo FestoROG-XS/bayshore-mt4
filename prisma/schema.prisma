@@ -27,7 +27,7 @@ model user {
     hp600Count Int @default(0)
     tutorials Int @default(0)
     teamId Int?
-    team_sticker_font Int?
+    teamCarId Int? // Prior Car Show ID
     carOrder Int[] @default([])
     lastLoginTime DateTime @default(now())
 }
@@ -38,24 +38,40 @@ model team{
     placeId String @default("CHN048001")
     teamName String
     createTime DateTime @default(now())
-    teamStickers Int[] @default([])
-    teamStickerFont Int
-    applying Boolean @default(true)
+    teamStickerFont Int @default(0)
+    applying Boolean @default(false) // wtf is this
+    closed Boolean @default(false)
     notices Int[]
     field1 String[] // Not Sure How it working
     field2 Int[] // Not Sure How it working
     field3 Int[] // Not Sure How it working
-    teamCarId Int? // Prior Car Show ID
+    prizeName String?
+    prizeNumber Int?
+}
+
+model teamStickers {
+    id Int @id @default(autoincrement())
+    teamId Int
+    targetTeamId Int
+    count Int
+    operationTime DateTime @default(now())
 }
 
 model teamOperationHistory{
     id Int @id @default(autoincrement())
     teamId Int
     userId Int
-    noticeType Int // 1 is Join, 2 is Leave
+    noticeType Int // 1 is Join
     operationTime DateTime @default(now())
-    field1 String? // Not Sure How it working
+    field1 String? // Not Sure How it working, user name maybe lol
     field2 Int? // Not Sure How it working
+}
+
+model teamApplicants {
+    id Int @id @default(autoincrement())
+    userId Int
+    targetTeamId Int
+    operationTime DateTime @default(now())
 }
 
 model car{

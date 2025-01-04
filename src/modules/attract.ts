@@ -242,57 +242,6 @@ export default class AttractModule extends Module {
         //     }),res)
         // })
 
-        app.get('/resource/active_team_list', async (req,res) => {
-
-            let teams : wm.v388.protobuf.ActiveTeamList.IActiveTeam[] = [];
-            const car1 = await getCar(5001);
-            const car2 = await getCar(5003);
-            
-            teams.push(wm.v388.protobuf.ActiveTeamList.ActiveTeam.create({
-                team: wm.v388.protobuf.Team.create({
-                    teamId: 10278,
-                    name: 'ＲＥＡＣＴ',
-                    numOfMembers: 2,
-                    numOfMemberCars: 2,
-                    leaderUserId: 1,
-                    leaderCarName: 'Ｋ４２３',
-                    leaderRegionId: 10,
-                    stickerFont: 0,
-                    fullfilled: false,
-                    closed: false,
-                    recruitmentSuspended: false,
-                    createdAt: common.dt2ts(new Date()),
-                    homePlace:JIANGMEN
-                }),
-                members: [
-                    wm.v388.protobuf.TeamMember.create({
-                        userId: 5001,
-                        car: {
-                            ...car1,
-                            lastPlayedAt: common.dt2ts(car1.lastPlayedAt!)
-                        },
-                        numOfOwnedCars: 3
-                    }),
-                    wm.v388.protobuf.TeamMember.create({
-                        userId: 5003,
-                        car: {
-                            ...car2,
-                            lastPlayedAt: common.dt2ts(car2.lastPlayedAt!)
-                        },
-                        numOfOwnedCars: 1
-                    })
-                ],
-                numOfStickers: 0,
-                updatedAt: common.dt2ts(new Date())
-            }))
-
-
-            common.sendResponse(wm.v388.protobuf.ActiveTeamList.encode({
-                teams: teams
-            }),res)
-
-        })
-
         app.post('/method/update_user_lock', (req,res) => {
             common.sendResponse(wm.v388.protobuf.UpdateUserLockResponse.encode({
                 error:wm.v388.protobuf.ErrorCode.ERR_SUCCESS

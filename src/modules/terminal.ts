@@ -193,7 +193,8 @@ export default class TerminalModule extends Module {
                     data: {
                         lastLoginTime: new Date(),
                         carOrder: (reqBody.carOrder.length > 0) ? reqBody.carOrder : undefined,
-                        tutorials: (reqBody.tutorials > user!.tutorials) ? reqBody.tutorials : undefined
+                        tutorials: (reqBody.tutorials > user!.tutorials) ? reqBody.tutorials : undefined,
+                        teamCarId: common.sanitizeInputNotZero(reqBody.teamCarId)
                     }
                 })
 
@@ -212,29 +213,7 @@ export default class TerminalModule extends Module {
 
         })
 
-        // FIXED DATA BELOW
-
-        app.post('/method/load_team_information', async(req,res) => {
-
-            try{
-                
-                let noticeEntries : wm.v388.protobuf.LoadTeamInformationResponse.INoticeEntry[] = [];
-                let newsEntries : wm.v388.protobuf.LoadTeamInformationResponse.INewsEntry[] = [];
-
-                const resp = wm.v388.protobuf.LoadTeamInformationResponse.encode({
-                    error: wm.v388.protobuf.ErrorCode.ERR_SUCCESS,
-                    noticeEntries: noticeEntries,
-                    newsEntries: newsEntries
-                })
-
-                common.sendResponse(resp,res);
-
-
-            } catch (ex: any) {
-                FAULT(req.url,ex);
-                res.status(503).send('NBGI Services Error');
-            }
-        })
+        // FIXED DATA BELOW       
         
 
     }

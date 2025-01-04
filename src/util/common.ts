@@ -1,6 +1,6 @@
 import { Response } from "express";
 import Long from "long";
-import { Writer } from "protobufjs";
+import { common, Writer } from "protobufjs";
 
 // sendResponse(message, res): Void
 // Sends the server response to the client
@@ -91,4 +91,20 @@ export function dt2ts(date: Date, isMilliseconds = false): number {
   
     // 返回秒级或毫秒级时间戳
     return isMilliseconds ? timestamp : Math.floor(timestamp / 1000);
+}
+
+export function daysLeft(timeStamp: number) : number {
+
+    const nowTime = dt2ts(new Date());
+    const targetTime = timeStamp + (86400 * 30);
+
+    return (targetTime - nowTime) / 86400;
+
+}
+
+export function daysDelta(timeStamp: number):number {
+
+  const nowTime = dt2ts(new Date());
+
+  return (nowTime - timeStamp) / 86400;
 }
