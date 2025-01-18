@@ -47,7 +47,7 @@ export default class AttractModule extends Module {
                         fileId: 1,
                         fileType: wm.v388.protobuf.FileType.FILE_PROMOTION_ANNOUNCEMENT,
                         fileSize: 588490,
-                        url: 'https://106.53.79.2:9002/static/ATTRACT.nut',
+                        url: 'https://localhost:9002/static/ATTRACT.nut',
                         sha1sum: new Uint8Array(Buffer.from('139aaf0f8baf11493fcde66ff5826aa31850a978', 'hex')),
                         notBefore: common.dt2ts(new Date("2024-12-31T00:00:00")),
                         notAfter: common.dt2ts(new Date("2025-12-31T00:00:00"))
@@ -67,7 +67,7 @@ export default class AttractModule extends Module {
         app.get('/static/:filename', (req,res) => {
 
             try {
-                const folder = '/home/ubuntu/MT4/contents/'
+                const folder = '/home/user/MT4/contents/'
                 res.sendFile(path.resolve(folder,req.params.filename), { cacheControl: false })
             } catch (ex:any) {
                 FAULT(req.url,ex);
