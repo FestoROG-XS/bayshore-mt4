@@ -14,7 +14,7 @@ import { BODY, DEBUG, FAULT, WARN } from "../util/log";
 import { generateSearchCode } from "../util/general";
 const db = new PrismaClient();
 
-export default class TerminalModule extends Module {
+export default class TerminalModule {
     register(app: Application): void {
 
         app.post('/method/prepare_car_succession', async(req,res) => {

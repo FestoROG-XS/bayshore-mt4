@@ -14,7 +14,7 @@ import { BODY, DEBUG, FAULT, WARN } from "../util/log";
 import Long from "long";
 const db = new PrismaClient();
 
-export default class ModeStoryModule extends Module {
+export default class ModeStoryModule {
     register(app: Application): void {}
 }
 

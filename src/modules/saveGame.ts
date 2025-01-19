@@ -16,14 +16,15 @@ import { prisma } from "..";
 import { saveGame_Story } from "./mode_story";
 import { saveGame_timeTrial } from "./mode_timeTrial";
 import { saveGame_InstoreVS } from "./mode_vs";
+import { saveGame_Ghost } from "./mode_ghost"
 const db = new PrismaClient();
 
-export default class SaveGameModule extends Module {
+export default class SaveGameModule {
     register(app: Application): void {
 
         app.post('/method/save_game_result', async (req,res) => {
 
-
+            let ghostSessionId;
             try {
 
                 const reqBody = wm.v388.protobuf.SaveGameResultRequest.decode(req.body);
@@ -71,7 +72,8 @@ export default class SaveGameModule extends Module {
                             earnedCustomColor: (reqBody.earnedCustomColor == undefined || reqBody.earnedCustomColor == null) ? undefined : reqBody.earnedCustomColor,
                             tunePower: reqBody.car.tunePower,
                             tuneHandling: reqBody.car.tuneHandling,
-                            lastPlayedAt: new Date()
+                            lastPlayedAt: new Date(),
+                            aura: reqBody.car.aura,
                         }
                     })
                 }
@@ -133,6 +135,9 @@ export default class SaveGameModule extends Module {
                                 await saveGame_InstoreVS(reqBody.vsResult,reqBody.carId)
                             break;
                         case wm.v388.protobuf.GameMode.MODE_GHOST_BATTLE:
+                            DEBUG(`Ghost Battle Mode Save`)
+                            ghostSessionId = Math.floor(Math.random() * 100) + 101
+                            await saveGame_Ghost(reqBody, reqBody.carId)
                             break;
                         case wm.v388.protobuf.GameMode.MODE_EVENT:
                             break;
@@ -143,7 +148,8 @@ export default class SaveGameModule extends Module {
                 }
 
                 common.sendResponse(wm.v388.protobuf.SaveGameResultResponse.encode({
-                    error: wm.v388.protobuf.ErrorCode.ERR_SUCCESS
+                    error: wm.v388.protobuf.ErrorCode.ERR_SUCCESS,
+                    ghostSessionId,
                 }),res);
 
             } catch (ex: any) {

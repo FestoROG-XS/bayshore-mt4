@@ -13,7 +13,7 @@ import { PrismaClient } from "@prisma/client";
 import { BODY, DEBUG, FAULT, WARN } from "../util/log";
 const db = new PrismaClient();
 
-export default class ModeVSModule extends Module {
+export default class ModeVSModule {
     register(app: Application): void {
     }
 }

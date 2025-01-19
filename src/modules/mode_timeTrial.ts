@@ -16,7 +16,7 @@ import { BODY, DEBUG, FAULT } from "../util/log";
 import { prisma } from "..";
 const db = new PrismaClient();
 
-export default class ModeTimeTrialModule extends Module {
+export default class ModeTimeTrialModule {
     register(app: Application): void {
         
         app.post('/method/load_time_attack_record', async(req,res) => {

@@ -14,7 +14,7 @@ import { getCar, getTeam} from "../util/general";
 import { DEBUG, FAULT } from "../util/log";
 const db = new PrismaClient();
 
-export default class UserModule extends Module {
+export default class UserModule {
     register(app: Application): void {
 
         app.post('/method/load_user', async(req,res) => {
